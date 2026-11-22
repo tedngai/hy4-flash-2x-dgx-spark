@@ -31,6 +31,20 @@ The very first boot after a cache-clearing rebuild took about **25 minutes**
 because FlashInfer and CuTeDSL compiled and autotuned SM120 kernels. Do not
 kill it early.
 
+## LAN access
+
+The default binding is `127.0.0.1` (loopback only). To expose the API on the
+management LAN:
+
+```bash
+WORKER=192.0.2.11 ./stop.sh
+HOST=192.0.2.10 WORKER=192.0.2.11 ./start.sh
+# or HOST=0.0.0.0 to bind every interface
+```
+
+The recipe has no authentication. Use a trusted network, a firewall, or a
+reverse proxy. The bind address does not change throughput.
+
 ## First run or rebuild
 
 ```bash

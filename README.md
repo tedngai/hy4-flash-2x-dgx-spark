@@ -69,6 +69,24 @@ curl -s http://127.0.0.1:8000/v1/chat/completions \
        "chat_template_kwargs":{"reasoning_effort":"no_think"}}'
 ```
 
+### LAN access
+
+The published recipe binds `127.0.0.1`. To expose the API on the local network,
+restart with `HOST` set:
+
+```bash
+WORKER=192.0.2.11 ./stop.sh
+HOST=0.0.0.0 WORKER=192.0.2.11 ./start.sh
+```
+
+Use `HOST=192.0.2.10` instead to bind only the management interface rather
+than every interface (LAN, QSFP and Tailscale). There is **no API key or
+authentication**, so only expose it on a trusted network or behind an
+authenticating reverse proxy.
+
+The benchmark matrix was measured with the default loopback binding; the bind
+address does not affect model throughput.
+
 ## 3. Configuration
 
 The published profile is the tuned recipe, not the upstream stock defaults.
