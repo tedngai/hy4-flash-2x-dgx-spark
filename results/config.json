@@ -1,0 +1,29 @@
+{
+  "model": "atakans/Hy4-flash-NVFP4",
+  "model_revision": "30f201acf0b4f9ba178817bcbc04ccfa3ec473f9",
+  "served_model_name": "hy4-flash",
+  "runtime_image": "dgx-spark-recipes/vllm-hy4-flash:77766db",
+  "runtime_image_id": "sha256:562aab446088341aa3346f232a6dae2563ad85df088c9915da3e3401898a8d94",
+  "base_image": "vllm/vllm-openai@sha256:5e2c1badbca60595d6591c60feb4b8547f59da96e7a91710d40239250e721aba",
+  "vllm_version": "0.1.dev25463+g77766db1f.d20261117",
+  "hardware": "2x NVIDIA DGX Spark (GB10), 128 GB unified memory each, QSFP link",
+  "tensor_parallel": "2",
+  "enable_expert_parallel": true,
+  "max_model_len": 262144,
+  "max_num_seqs": 4,
+  "max_num_batched_tokens": 4096,
+  "gpu_memory_utilization": 0.85,
+  "kv_cache_memory_bytes": null,
+  "kv_cache_size_tokens": 1501761,
+  "kv_cache_max_concurrency_at_max_len": 5.728767123287671,
+  "kv_cache_dtype": "auto",
+  "block_size": 256,
+  "enable_prefix_caching": true,
+  "speculative_config": {
+    "num_speculative_tokens": 5,
+    "method": "dfly"
+  },
+  "quantization": "modelopt NVFP4 experts; FP8 Engram tables; BF16 elsewhere",
+  "output_tokens": 512,
+  "ignore_eos": true
+}
