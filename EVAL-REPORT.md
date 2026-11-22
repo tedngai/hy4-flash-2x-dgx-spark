@@ -155,11 +155,11 @@ The fast request is the one that finishes last and decodes after the other prefi
 | Tool call request + round trip | pass | `get_weather({"city":"Paris"})` |
 | Single-image red square | pass | `Red` |
 | Anthropic count_tokens | pass | 23 input tokens |
-| Anthropic messages | pass | thinking block + reply; 5.1 s |
-| Prompt reuse, 32K | pass | 21.77 s → 1.26 s |
-| Needle, 200K | pass | 200,024 prompt tokens, `ZEBRA-9174`, 141.8 s |
-| Reasoning-effort scale | pass | 0 / 136 / 187 reasoning tokens |
-| 4-way concurrency | pass | wall 0.58 s; four `OK n` replies |
+| Anthropic messages | pass | text `Hello`; 2.5 s |
+| Prompt reuse, 32K | pass | 26.99 s → 1.10 s |
+| Needle, 200K | pass | 200,024 prompt tokens, `ZEBRA-9174`, 166.2 s |
+| Reasoning-effort scale | pass | 0 / 173 / 180 reasoning tokens |
+| 4-way concurrency | pass | wall 0.47 s; four `OK n` replies |
 
 ### Chat-shaped decode
 

@@ -20,7 +20,7 @@ speed, KV capacity and feature correctness are reported as separate milestones.
 | API model ID | `hy4-flash` |
 | Served context | **262,144 tokens** per request. Native window is 1,048,576; it is not served here. |
 | KV capacity | **1,501,761 tokens** at auto sizing / 0.85 utilization — **5.73×** a 262K window. |
-| Admission slots | `max-num-seqs 4`; four simultaneous short requests verified (0.58 s wall). |
+| Admission slots | `max-num-seqs 4`; four simultaneous short requests verified (0.47 s wall). |
 | Speculative decoding | DFly, 5 draft tokens. |
 | Speed | C1 decode 36–55 tok/s from 512 to 250K; C4 aggregate 89–136 tok/s for 512–32K. Chat: JSON 44.8, code 45.6, rewrite 24.4, explain 28.9, story 16.9 tok/s. |
 | Long context | 250,000-token C1/C2/C4 matrix cells completed; 200,024-token needle pass. |
@@ -171,11 +171,11 @@ from 8192 to 4096 then creates the peak-activation headroom for 18.26 GiB.
 | Tool call + result | pass | `get_weather({"city":"Paris"})` round trip |
 | Single-image vision | pass | red square → `Red` |
 | Anthropic count_tokens | pass | 23 input tokens |
-| Anthropic messages | pass | thinking block + reply |
-| Prompt reuse, 32K | pass | 21.77 s → 1.26 s |
-| Needle, 200K | pass | 200,024 prompt tokens, `ZEBRA-9174`, 141.8 s |
-| Reasoning-effort scale | pass | `no_think 0` / `high 136` / `max 187` tokens |
-| 4-way concurrency | pass | wall 0.58 s for 4 requests |
+| Anthropic messages | pass | thinking block + text `Hello` |
+| Prompt reuse, 32K | pass | 26.99 s → 1.10 s |
+| Needle, 200K | pass | 200,024 prompt tokens, `ZEBRA-9174`, 166.2 s |
+| Reasoning-effort scale | pass | `no_think 0` / `high 173` / `max 180` tokens |
+| 4-way concurrency | pass | wall 0.47 s for 4 requests |
 
 These are smoke checks, not quality scores.
 

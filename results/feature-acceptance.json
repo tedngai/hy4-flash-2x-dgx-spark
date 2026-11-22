@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-11-22T20:09:01+0000",
+  "captured_at": "2026-11-22T20:16:34+0000",
   "model": "hy4-flash",
   "api": "http://127.0.0.1:8000",
   "checks": [
@@ -7,78 +7,78 @@
       "name": "health",
       "status": "pass",
       "detail": "HTTP 200",
-      "seconds": 0.0068891048431396484
+      "seconds": 0.0063402652740478516
     },
     {
       "name": "models",
       "status": "pass",
       "detail": "served ids: ['hy4-flash']",
-      "seconds": 0.0006110668182373047
+      "seconds": 0.0007233619689941406
     },
     {
       "name": "arithmetic_19_plus_23",
       "status": "pass",
       "detail": "content='42'",
-      "seconds": 0.4806678295135498
+      "seconds": 0.283799409866333
     },
     {
       "name": "json_schema",
       "status": "pass",
       "detail": "content='{\\n  \"city\": \"Paris\",\\n  \"temperature_c\": 18,\\n  \"conditions\": \"Partly cloudy\"\\n}'",
-      "seconds": 2.279900312423706
+      "seconds": 1.5555713176727295
     },
     {
       "name": "tool_call_request",
       "status": "pass",
-      "detail": "[{\"id\": \"chatcmpl-tool-b7107718006fc859\", \"type\": \"function\", \"function\": {\"name\": \"get_weather\", \"arguments\": \"{\\\"city\\\": \\\"Paris\\\"}\"}}]",
-      "seconds": 0.8417696952819824
+      "detail": "[{\"id\": \"chatcmpl-tool-a1432e30b21b2912\", \"type\": \"function\", \"function\": {\"name\": \"get_weather\", \"arguments\": \"{\\\"city\\\": \\\"Paris\\\"}\"}}]",
+      "seconds": 0.7494080066680908
     },
     {
       "name": "tool_call_round_trip",
       "status": "pass",
       "detail": "content='The weather in Paris is currently sunny with a temperature of 22\u00b0C.'",
-      "seconds": 1.0859298706054688
+      "seconds": 0.9151442050933838
     },
     {
       "name": "vision_single_red_square",
       "status": "pass",
       "detail": "content='Red'",
-      "seconds": 0.7657606601715088
+      "seconds": 0.38741540908813477
     },
     {
       "name": "anthropic_count_tokens",
       "status": "pass",
       "detail": "{\"input_tokens\": 23, \"context_management\": {\"original_input_tokens\": 23}}",
-      "seconds": 0.016077041625976562
+      "seconds": 0.006155490875244141
     },
     {
       "name": "anthropic_messages",
       "status": "pass",
-      "detail": "[{\"type\": \"thinking\", \"thinking\": \"The user's instruction is \\\"Say hello in one word,\\\" which requires a one-word greeting.\\nI must first understand the user's core request: the need for a greeting conveyed in the most concise form possible.\\nNext, I will identify the most common and widely recognized one-word greeting in English: \\\"Hello.\\\" It is concise, universal, and directly conveys the intent of the greeting.\\nFinally, I will output \\\"Hello\\\" precisely, satisfying the user's one-word requi",
-      "seconds": 5.075589656829834
+      "detail": "text='Hello'",
+      "seconds": 2.528756856918335
     },
     {
       "name": "prompt_reuse_32k",
       "status": "pass",
-      "detail": "first=21.77s second=1.26s cache_hits=0.0->0.0",
-      "seconds": 1.2645244598388672
+      "detail": "first=26.99s second=1.10s cache_hits=32512.0->32512.0",
+      "seconds": 1.0987446308135986
     },
     {
       "name": "needle_200k",
       "status": "pass",
       "detail": "prompt_tokens=200024 answer='ZEBRA-9174'",
-      "seconds": 141.83068084716797
+      "seconds": 166.24621558189392
     },
     {
       "name": "reasoning_effort_scale",
       "status": "pass",
-      "detail": "{\"no_think\": 0, \"high\": 136, \"max\": 187}",
+      "detail": "{\"no_think\": 0, \"high\": 173, \"max\": 180}",
       "seconds": null
     },
     {
       "name": "concurrency_4",
       "status": "pass",
-      "detail": "wall=0.6s slowest=0.6s",
+      "detail": "wall=0.5s slowest=0.5s",
       "seconds": null
     }
   ],

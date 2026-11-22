@@ -1,12 +1,12 @@
 {
   "model": "hy4-flash",
   "requested": 4,
-  "wall_seconds": 0.5819296836853027,
+  "wall_seconds": 0.468109130859375,
   "per_request_seconds": [
-    0.58,
-    0.58,
-    0.58,
-    0.58
+    0.47,
+    0.47,
+    0.46,
+    0.46
   ],
   "contents": [
     "OK 0",

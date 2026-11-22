@@ -239,8 +239,12 @@ def run() -> dict:
              "messages": [{"role": "user", "content": "Say hello in one word."}]},
             timeout=300,
         )
-        record("anthropic_messages", bool(reply.get("content")),
-               json.dumps(reply.get("content"))[:500], seconds)
+        blocks = reply.get("content") or []
+        text = " ".join(
+            block.get("text", "") for block in blocks
+            if block.get("type") == "text"
+        ).strip()
+        record("anthropic_messages", bool(text), f"text={text!r}", seconds)
     except Exception as error:  # noqa: BLE001
         record("anthropic_messages", False, repr(error))
 
