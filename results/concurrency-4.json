@@ -1,0 +1,18 @@
+{
+  "model": "hy4-flash",
+  "requested": 4,
+  "wall_seconds": 0.5819296836853027,
+  "per_request_seconds": [
+    0.58,
+    0.58,
+    0.58,
+    0.58
+  ],
+  "contents": [
+    "OK 0",
+    "OK 1",
+    "OK 2",
+    "OK 3"
+  ],
+  "status": "pass"
+}

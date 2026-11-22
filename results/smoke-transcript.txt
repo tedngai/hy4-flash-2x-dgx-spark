@@ -1,0 +1,14 @@
+PASS health: HTTP 200
+PASS models: served ids: ['hy4-flash']
+PASS arithmetic_19_plus_23: content='42'
+PASS json_schema: content='{\n  "city": "Paris",\n  "temperature_c": 18,\n  "conditions": "Partly cloudy"\n}'
+PASS tool_call_request: [{"id": "chatcmpl-tool-b7107718006fc859", "type": "function", "function": {"name": "get_weather", "arguments": "{\"city\": \"Paris\"}"}}]
+PASS tool_call_round_trip: content='The weather in Paris is currently sunny with a temperature of 22°C.'
+PASS vision_single_red_square: content='Red'
+PASS anthropic_count_tokens: {"input_tokens": 23, "context_management": {"original_input_tokens": 23}}
+PASS anthropic_messages: [{"type": "thinking", "thinking": "The user's instruction is \"Say hello in one word,\" which requires a one-word greeting.\nI must first understand the user's core request: the need for a greeting conveyed in the most concise form possible.\nNext, I will identify the most common and widely recognized one-word greeting in English: \"Hello.\" It is concise, universal, and directly conveys the intent of the greeting.\nFinally, I will output \"Hello\" precisely, satisfying the user's one-word requi
+PASS prompt_reuse_32k: first=21.77s second=1.26s cache_hits=0.0->0.0
+PASS needle_200k: prompt_tokens=200024 answer='ZEBRA-9174'
+PASS reasoning_effort_scale: {"no_think": 0, "high": 136, "max": 187}
+PASS concurrency_4: wall=0.6s slowest=0.6s
+13/13 checks passed

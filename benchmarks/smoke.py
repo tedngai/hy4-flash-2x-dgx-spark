@@ -33,8 +33,10 @@ NEEDLE = os.environ.get("NEEDLE", "ZEBRA-9174")
 NEEDLE_TOKENS = int(os.environ.get("NEEDLE_TOKENS", "200000"))
 
 _cache = Path.home() / ".cache/huggingface/hub/models--atakans--Hy4-flash-NVFP4"
-_rev = (_cache / "refs/main").read_text().strip()
-tokenizer_file = Path(os.environ.get("TOKENIZER_PATH") or (_cache / "snapshots" / _rev / "tokenizer.json"))
+_matches = sorted(_cache.glob("snapshots/*/tokenizer.json"))
+if not _matches:
+    raise SystemExit("tokenizer.json not found; set TOKENIZER_PATH")
+tokenizer_file = Path(os.environ.get("TOKENIZER_PATH") or _matches[-1])
 TOK = Tokenizer.from_file(str(tokenizer_file))
 
 
@@ -233,7 +235,7 @@ def run() -> dict:
     try:
         reply, seconds = post(
             "/v1/messages",
-            {"model": MODEL, "max_tokens": 256,
+            {"model": MODEL, "max_tokens": 768,
              "messages": [{"role": "user", "content": "Say hello in one word."}]},
             timeout=300,
         )

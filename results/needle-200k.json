@@ -1,0 +1,12 @@
+{
+  "kind": "needle",
+  "requested_tokens": 200000,
+  "method": "chat",
+  "prompt_tokens": 200024,
+  "completion_tokens": 7,
+  "seconds": 141.83068084716797,
+  "answer": "ZEBRA-9174",
+  "correct": true,
+  "model": "hy4-flash",
+  "tokenizer_sha256": "2e3f3d22065c2be5765ce99ab2410411ae338b32ce809ea20dcdb61d00198e83"
+}

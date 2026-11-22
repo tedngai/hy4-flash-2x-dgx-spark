@@ -16,6 +16,7 @@ Every published number has a raw receipt here.
 | `reasoning-effort.json` | `no_think` / `high` / `max` reasoning-token probe. |
 | `concurrency-4.json` | Four simultaneous requests against the four admission slots. |
 | `chat-smoke.json` | Five chat-shaped prompt types × 3, thinking off, with TTFT and decode tok/s. |
+| `smoke-transcript.txt`, `chat-smoke-transcript.txt` | Human-readable check output. |
 | `kv-batch-sweep.md`, `kv-batch/`, `kv-batch-sweep.log` | KV-cap × prefill-batch tuning receipts. |
 | `protocol-audit.json` | Structural audit of the matrix (counts, hashes, failures). |
 

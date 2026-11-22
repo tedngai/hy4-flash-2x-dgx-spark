@@ -1,0 +1,87 @@
+{
+  "captured_at": "2026-11-22T20:09:01+0000",
+  "model": "hy4-flash",
+  "api": "http://127.0.0.1:8000",
+  "checks": [
+    {
+      "name": "health",
+      "status": "pass",
+      "detail": "HTTP 200",
+      "seconds": 0.0068891048431396484
+    },
+    {
+      "name": "models",
+      "status": "pass",
+      "detail": "served ids: ['hy4-flash']",
+      "seconds": 0.0006110668182373047
+    },
+    {
+      "name": "arithmetic_19_plus_23",
+      "status": "pass",
+      "detail": "content='42'",
+      "seconds": 0.4806678295135498
+    },
+    {
+      "name": "json_schema",
+      "status": "pass",
+      "detail": "content='{\\n  \"city\": \"Paris\",\\n  \"temperature_c\": 18,\\n  \"conditions\": \"Partly cloudy\"\\n}'",
+      "seconds": 2.279900312423706
+    },
+    {
+      "name": "tool_call_request",
+      "status": "pass",
+      "detail": "[{\"id\": \"chatcmpl-tool-b7107718006fc859\", \"type\": \"function\", \"function\": {\"name\": \"get_weather\", \"arguments\": \"{\\\"city\\\": \\\"Paris\\\"}\"}}]",
+      "seconds": 0.8417696952819824
+    },
+    {
+      "name": "tool_call_round_trip",
+      "status": "pass",
+      "detail": "content='The weather in Paris is currently sunny with a temperature of 22\u00b0C.'",
+      "seconds": 1.0859298706054688
+    },
+    {
+      "name": "vision_single_red_square",
+      "status": "pass",
+      "detail": "content='Red'",
+      "seconds": 0.7657606601715088
+    },
+    {
+      "name": "anthropic_count_tokens",
+      "status": "pass",
+      "detail": "{\"input_tokens\": 23, \"context_management\": {\"original_input_tokens\": 23}}",
+      "seconds": 0.016077041625976562
+    },
+    {
+      "name": "anthropic_messages",
+      "status": "pass",
+      "detail": "[{\"type\": \"thinking\", \"thinking\": \"The user's instruction is \\\"Say hello in one word,\\\" which requires a one-word greeting.\\nI must first understand the user's core request: the need for a greeting conveyed in the most concise form possible.\\nNext, I will identify the most common and widely recognized one-word greeting in English: \\\"Hello.\\\" It is concise, universal, and directly conveys the intent of the greeting.\\nFinally, I will output \\\"Hello\\\" precisely, satisfying the user's one-word requi",
+      "seconds": 5.075589656829834
+    },
+    {
+      "name": "prompt_reuse_32k",
+      "status": "pass",
+      "detail": "first=21.77s second=1.26s cache_hits=0.0->0.0",
+      "seconds": 1.2645244598388672
+    },
+    {
+      "name": "needle_200k",
+      "status": "pass",
+      "detail": "prompt_tokens=200024 answer='ZEBRA-9174'",
+      "seconds": 141.83068084716797
+    },
+    {
+      "name": "reasoning_effort_scale",
+      "status": "pass",
+      "detail": "{\"no_think\": 0, \"high\": 136, \"max\": 187}",
+      "seconds": null
+    },
+    {
+      "name": "concurrency_4",
+      "status": "pass",
+      "detail": "wall=0.6s slowest=0.6s",
+      "seconds": null
+    }
+  ],
+  "passed": 13,
+  "total": 13
+}

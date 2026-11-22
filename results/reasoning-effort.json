@@ -1,0 +1,15 @@
+{
+  "model": "hy4-flash",
+  "prompt": "A bat and a ball cost $1.10 together. The bat costs $1.00 more than the ball. How much does the ball cost? Explain carefully.",
+  "reasoning_tokens": {
+    "no_think": 0,
+    "high": 136,
+    "max": 187
+  },
+  "levels": [
+    "no_think",
+    "high",
+    "max"
+  ],
+  "status": "pass"
+}

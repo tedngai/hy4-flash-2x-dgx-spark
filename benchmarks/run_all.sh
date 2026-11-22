@@ -15,4 +15,5 @@ OUTPUT_TOKENS="$OUTPUT_TOKENS" PREFILL_SIZES="$PREFILL_SIZES" \
   python3 benchmarks/matrix.py
 ./benchmarks/finalize.sh "$RESULTS_DIR"
 python3 benchmarks/smoke.py
+python3 benchmarks/chat_smoke.py
 echo "matrix: $RESULTS_DIR"

@@ -1,0 +1,24 @@
+{"prompt": "json", "ttft_s": 0.35, "wall_s": 3.104, "completion_tokens": 126, "decode_tok_s": 45.39}
+{"prompt": "json", "ttft_s": 0.303, "wall_s": 3.162, "completion_tokens": 129, "decode_tok_s": 44.77}
+{"prompt": "json", "ttft_s": 0.302, "wall_s": 2.036, "completion_tokens": 71, "decode_tok_s": 40.36}
+{"prompt": "code", "ttft_s": 0.408, "wall_s": 7.549, "completion_tokens": 300, "decode_tok_s": 41.87}
+{"prompt": "code", "ttft_s": 0.21, "wall_s": 5.118, "completion_tokens": 230, "decode_tok_s": 46.65}
+{"prompt": "code", "ttft_s": 0.291, "wall_s": 6.737, "completion_tokens": 295, "decode_tok_s": 45.61}
+{"prompt": "rewrite", "ttft_s": 0.431, "wall_s": 1.549, "completion_tokens": 26, "decode_tok_s": 22.37}
+{"prompt": "rewrite", "ttft_s": 0.324, "wall_s": 1.144, "completion_tokens": 21, "decode_tok_s": 24.41}
+{"prompt": "rewrite", "ttft_s": 0.323, "wall_s": 1.139, "completion_tokens": 21, "decode_tok_s": 24.49}
+{"prompt": "explain", "ttft_s": 0.41, "wall_s": 11.045, "completion_tokens": 300, "decode_tok_s": 28.11}
+{"prompt": "explain", "ttft_s": 0.283, "wall_s": 10.645, "completion_tokens": 300, "decode_tok_s": 28.86}
+{"prompt": "explain", "ttft_s": 0.298, "wall_s": 10.086, "completion_tokens": 300, "decode_tok_s": 30.55}
+{"prompt": "story", "ttft_s": 0.3, "wall_s": 19.284, "completion_tokens": 300, "decode_tok_s": 15.75}
+{"prompt": "story", "ttft_s": 0.198, "wall_s": 17.085, "completion_tokens": 300, "decode_tok_s": 17.71}
+{"prompt": "story", "ttft_s": 0.279, "wall_s": 18.019, "completion_tokens": 300, "decode_tok_s": 16.85}
+{
+  "median_decode_tok_s": {
+    "json": 44.77,
+    "code": 45.61,
+    "rewrite": 24.41,
+    "explain": 28.86,
+    "story": 16.85
+  }
+}

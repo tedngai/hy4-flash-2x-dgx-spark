@@ -72,7 +72,9 @@ recipe is optimal for every workload.
 
 The KV pool holds 1,501,761 tokens. A single request can use up to 262,144;
 four requests cannot each use 262,144. At 250K the pool fits six full
-sessions; `max-num-seqs 4` is the admission cap, not a reservation.
+sessions; `max-num-seqs 4` is the admission cap, not a reservation. At
+131K/C4 and above the scheduler admits the long prefills in waves, so those
+cells are completion receipts, not four full-speed streams.
 
 ## Open questions
 

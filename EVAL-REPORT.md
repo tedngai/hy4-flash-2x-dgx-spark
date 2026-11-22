@@ -92,18 +92,88 @@ over 2048 and is not worth it.
 | 27,477 | 17.9 s | 1,531 tok/s |
 | 109,770 | 104.3 s | 1,052 tok/s |
 | 214,348 | 217.3 s | 986 tok/s |
-| 250,000 (matrix C1) | see matrix | see matrix |
+| 250,000 (matrix C1) | 181.4 s | 1,378.5 tok/s |
 
 All returned normally with health 200 after each. The 250K matrix cell is the
 end-to-end receipt for the served window.
 
 ## 4. Burst-serving matrix
 
-<!-- MATRIX-SECTION -->
+All **21 cells completed** (49 requests, zero failed requests). `results/protocol-audit.json` reports `status: pass`; the only warnings are the three long-context C4 cells with no positive common decode window. The full table is in the README and `results/hy4-flash-table.md`.
+
+| Input tokens/request | C | Effective prefill tok/s | Total decode tok/s | Shared decode/request tok/s | Per-request decode tok/s | TTFT s | Shared decode s | Peak overlap | Success |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 512 | 1 | 955.7 | 35.2 | 35.2 | 36.2 | 0.5 | 14.5 | 1 | 1/1 |
+| 512 | 2 | 987.0 | 75.2 | 37.6 | 38.5 | 1.0 | 12.2 | 2 | 2/2 |
+| 512 | 4 | 1241.1 | 117.1 | 28.8 | 29.8 | 1.6 | 16.1 | 4 | 4/4 |
+| 2,048 | 1 | 1272.8 | 40.6 | 40.6 | 41.8 | 1.6 | 12.6 | 1 | 1/1 |
+| 2,048 | 2 | 1530.0 | 85.1 | 42.5 | 43.5 | 2.7 | 11.4 | 2 | 2/2 |
+| 2,048 | 4 | 1335.8 | 114.6 | 27.8 | 28.8 | 4.3 | 16.1 | 4 | 4/4 |
+| 8,192 | 1 | 1164.0 | 47.6 | 47.6 | 47.5 | 7.0 | 10.7 | 1 | 1/1 |
+| 8,192 | 2 | 1227.0 | 71.5 | 35.8 | 37.2 | 9.8 | 12.7 | 2 | 2/2 |
+| 8,192 | 4 | 1186.5 | 89.4 | 24.2 | 23.2 | 19.6 | 18.4 | 4 | 4/4 |
+| 32,768 | 1 | 1476.4 | 50.6 | 50.6 | 50.8 | 22.2 | 10.1 | 1 | 1/1 |
+| 32,768 | 2 | 1486.6 | 93.2 | 46.6 | 47.4 | 33.1 | 9.9 | 2 | 2/2 |
+| 32,768 | 4 | 1471.6 | 136.4 | 33.8 | 35.7 | 57.4 | 10.8 | 4 | 4/4 |
+| 131,072 | 1 | 1409.3 | 52.9 | 52.9 | 52.9 | 93.0 | 9.7 | 1 | 1/1 |
+| 131,072 | 2 | 1293.7 | 82.3 | 41.1 | 25.7 | 151.2 | 8.2 | 2 | 2/2 |
+| 131,072 | 4 | 1155.6 | — | — | 8.9 | 290.1 | 0.0 | 3 | 4/4 |
+| 200,000 | 1 | 1162.8 | 47.0 | 47.0 | 45.5 | 172.0 | 10.9 | 1 | 1/1 |
+| 200,000 | 2 | 1357.0 | 81.7 | 40.9 | 25.7 | 218.4 | 6.2 | 2 | 2/2 |
+| 200,000 | 4 | 1310.4 | — | — | 3.2 | 380.3 | 0.0 | 3 | 4/4 |
+| 250,000 | 1 | 1378.5 | 54.6 | 54.6 | 54.7 | 181.4 | 9.4 | 1 | 1/1 |
+| 250,000 | 2 | 1309.6 | 72.9 | 36.5 | 28.9 | 283.1 | 3.4 | 2 | 2/2 |
+| 250,000 | 4 | 1276.7 | — | — | 3.0 | 483.9 | 0.0 | 2 | 4/4 |
+
+### Reading the matrix
+
+- **C1 decode** is 36.2 tok/s at 512, rises to 47.5 at 8K and 50.8 at 32K, then 52.9 at 131K, 45.5 at 200K and 54.7 at 250K. The variation at long context is DFly acceptance, not a monotonic context penalty.
+- **C4 aggregate** is 117.1 / 114.6 / 89.4 / 136.4 tok/s at 512 / 2K / 8K / 32K. Above 32K the long prefills stagger the wave.
+- **Effective prefill** is 1,164–1,530 tok/s at short context and 1,163–1,409 tok/s for C1 at 200K/250K. The 250K/C1 TTFT is 181.4 s; the 250K/C4 median TTFT is 483.9 s.
+- **Long-context C4 is an admission receipt, not an aggregate throughput result.** All four requests completed at 131K/C4, 200K/C4 and 250K/C4, but peak client overlap was 2–3 and no common decode interval existed, so total and shared decode are left empty. The per-request decode medians are low because three requests decode while another prefill is running. The last request in each wave decodes alone at 41–42 tok/s at 200K/250K (17.4 tok/s at 131K). C1 and C2 are the practical long-context modes.
+- **Capacity is not context.** The pool holds 1,501,761 tokens; four 250K requests fit in aggregate, but `max-num-seqs 4` and the 4,096-token prefill budget make the scheduler admit them in waves. A C4 wave at 250K is not four simultaneous full-speed streams.
+
+### Raw per-request decode at the long C4 cells
+
+| Cell | Request 0 | Request 1 | Request 2 | Request 3 | Median |
+|---|---:|---:|---:|---:|---:|
+| 131K / C4 | 1.68 | 3.29 | 14.56 | 17.36 | 8.9 |
+| 200K / C4 | 1.61 | 41.34 | 1.62 | 4.81 | 3.2 |
+| 250K / C4 | 41.69 | 1.60 | 1.70 | 4.30 | 3.0 |
+
+The fast request is the one that finishes last and decodes after the other prefills have cleared. The slow requests are decoding while the next 131K–250K prefill is consuming the GPU.
 
 ## 5. Feature acceptance
 
-<!-- FEATURE-SECTION -->
+`smoke.py` passed **13/13** checks on one boot. These are bounded acceptance checks, not quality scores.
+
+| Check | Result | Evidence |
+| --- | --- | --- |
+| Health / models | pass | `/health` 200; `hy4-flash` listed |
+| Arithmetic | pass | `19 + 23` → `42` |
+| JSON schema | pass | valid city/temperature/conditions object |
+| Tool call request + round trip | pass | `get_weather({"city":"Paris"})` |
+| Single-image red square | pass | `Red` |
+| Anthropic count_tokens | pass | 23 input tokens |
+| Anthropic messages | pass | thinking block + reply; 5.1 s |
+| Prompt reuse, 32K | pass | 21.77 s → 1.26 s |
+| Needle, 200K | pass | 200,024 prompt tokens, `ZEBRA-9174`, 141.8 s |
+| Reasoning-effort scale | pass | 0 / 136 / 187 reasoning tokens |
+| 4-way concurrency | pass | wall 0.58 s; four `OK n` replies |
+
+### Chat-shaped decode
+
+Five prompts, 300 forced output tokens, thinking off, median of three:
+
+| Workload | TTFT | Decode tok/s | DFly mean acceptance |
+|---|---:|---:|---:|
+| JSON | 0.30–0.35 s | 44.8 | 2.94–3.09 |
+| Code | 0.21–0.41 s | 45.6 | 2.94–3.09 |
+| Rewrite | 0.32–0.43 s | 24.4 | — |
+| Explain | 0.28–0.41 s | 28.9 | — |
+| Story | 0.20–0.30 s | 16.9 | 1.61–1.81 |
+
+The matrix's raw code-completion prompt accepts 5.45–5.50 tokens per draft step (89–90% draft acceptance); chat prose accepts 1.6–1.8 (12–16%). That is the main reason chat prose runs at 17–29 tok/s while the matrix code prompt runs at 36–55 tok/s. JSON/code chat still reaches ~45 tok/s.
 
 ## 6. Limitations
 
