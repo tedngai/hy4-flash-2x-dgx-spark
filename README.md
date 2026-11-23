@@ -28,7 +28,9 @@ speed, KV capacity and feature correctness are reported as separate milestones.
 | Reliability | One boot; no one-hour soak, rollback or multi-user agent trace yet. |
 
 **Scope:** the publishable claim is the measured two-Spark vLLM recipe. The
-KV/batch tuning history is in [`EVAL-REPORT.md`](EVAL-REPORT.md).
+KV/batch tuning history is in [`EVAL-REPORT.md`](EVAL-REPORT.md). A separate
+**500K / 3-slot profile** is included; the 262K / 4-slot profile remains the
+measured matrix baseline.
 
 ## 2. Start the service
 
@@ -86,6 +88,25 @@ authenticating reverse proxy.
 
 The benchmark matrix was measured with the default loopback binding; the bind
 address does not affect model throughput.
+
+### 500K / 3-slot profile
+
+The default recipe is the measured **262,144-token / 4-slot** profile. A second
+profile serves **500,000 tokens with 3 admission slots**:
+
+```bash
+WORKER=192.0.2.11 ./stop.sh
+RECIPE=llm/hy4-flash-nvfp4-vllm-tp2-500k \
+  HOST=0.0.0.0 WORKER=192.0.2.11 ./start.sh
+```
+
+It uses `--max-model-len 500000`, `--max-num-seqs 3` and
+`--max-num-batched-tokens 2048`. At the measured start the KV pool was
+**1,522,579 tokens (3.05× at 500K)**, leaving ~22K tokens of headroom for three
+full-length requests. A 490K C1 request completed in 488.8 s
+(**1,002 tok/s prefill**), and three concurrent short requests passed at 0.90 s
+wall. The 500K profile has a separate compile cache directory; on a fresh clone
+its first boot may autotune for ~25 minutes.
 
 ## 3. Configuration
 

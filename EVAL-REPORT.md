@@ -175,7 +175,26 @@ Five prompts, 300 forced output tokens, thinking off, median of three:
 
 The matrix's raw code-completion prompt accepts 5.45–5.50 tokens per draft step (89–90% draft acceptance); chat prose accepts 1.6–1.8 (12–16%). That is the main reason chat prose runs at 17–29 tok/s while the matrix code prompt runs at 36–55 tok/s. JSON/code chat still reaches ~45 tok/s.
 
-## 6. Limitations
+## 6. 500K / 3-slot profile
+
+A second profile serves **500,000 tokens with 3 admission slots**. It keeps
+auto KV at 0.85 and lowers the prefill batch to 2048:
+
+| Setting | 262K / 4 profile | 500K / 3 profile |
+|---|---:|---:|
+| `max-model-len` | 262,144 | **500,000** |
+| `max-num-seqs` | 4 | **3** |
+| `max-num-batched-tokens` | 4,096 | **2,048** |
+| KV tokens at measured start | 1,501,761 | **1,522,579** |
+| Concurrency at max window | 5.73× | **3.05×** |
+
+The 500K pool leaves about 22K tokens of headroom for three full-length
+requests. A 490,000-token C1 request completed with **488.8 s TTFT** and
+**1,002.4 tok/s prefill**; three short concurrent requests passed at 0.898 s
+wall. The 500K profile has its own compile-cache directory, so a cold first
+boot may autotune for ~25 minutes. Receipt: `results/500k-profile.md`.
+
+## 7. Limitations
 
 - Forced-output completions are not a quality score.
 - NVFP4 expert quantization is lossy; no GPQA Diamond or IFEval run was made.
@@ -185,7 +204,7 @@ The matrix's raw code-completion prompt accepts 5.45–5.50 tokens per draft ste
   262,144-token window and a 1.50M-token KV pool.
 - No one-hour soak, multi-user agent trace or rollback exercise was run.
 
-## 7. Reproduction
+## 8. Reproduction
 
 ```bash
 python3 benchmarks/capture_env.py

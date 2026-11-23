@@ -45,6 +45,23 @@ HOST=192.0.2.10 WORKER=192.0.2.11 ./start.sh
 The recipe has no authentication. Use a trusted network, a firewall, or a
 reverse proxy. The bind address does not change throughput.
 
+## 500K / 3-slot profile
+
+The default is the 262,144-token / 4-slot profile. To run the 500,000-token /
+3-slot profile:
+
+```bash
+WORKER=192.0.2.11 ./stop.sh
+RECIPE=llm/hy4-flash-nvfp4-vllm-tp2-500k \
+  HOST=0.0.0.0 WORKER=192.0.2.11 ./start.sh
+```
+
+It uses batch 2048 and auto KV. At the measured start: 1,522,579 KV tokens
+(3.05× at 500K), a 490K C1 request at 488.8 s / 1,002 tok/s prefill, and three
+short concurrent requests in 0.90 s. The profile has its own `cache/` directory;
+if it is cold, the first boot can spend ~25 minutes in FlashInfer/CuTeDSL
+autotune.
+
 ## First run or rebuild
 
 ```bash

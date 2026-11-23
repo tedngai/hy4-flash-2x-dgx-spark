@@ -14,7 +14,10 @@ Every published number has a raw receipt here.
 | `feature-acceptance.json` | Smoke checks, including the 200k needle. |
 | `needle-200k.json` | Long-context retrieval receipt. |
 | `reasoning-effort.json` | `no_think` / `high` / `max` reasoning-token probe. |
-| `concurrency-4.json` | Four simultaneous requests against the four admission slots. |
+| `concurrency-4.json` | Four simultaneous requests against the four admission slots (262K profile). |
+| `concurrency-3-500k.json` | Three simultaneous requests against the 500K profile's three slots. |
+| `500k-profile.md` | 500K / 3-slot configuration, capacity and receipts. |
+| `490k-c1.json` | Raw event for the 490,000-token single-request check. |
 | `chat-smoke.json` | Five chat-shaped prompt types × 3, thinking off, with TTFT and decode tok/s. |
 | `smoke-transcript.txt`, `chat-smoke-transcript.txt` | Human-readable check output. |
 | `kv-batch-sweep.md`, `kv-batch/`, `kv-batch-sweep.log` | KV-cap × prefill-batch tuning receipts. |
